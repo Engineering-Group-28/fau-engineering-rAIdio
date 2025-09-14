@@ -2,8 +2,9 @@
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>FAU Engineering rAIdio Station</title>
+<title>FAU Engineering rAIdio Station — Feedback</title>
 <style>
+/* ====== Your existing site styles ====== */
 h1   {font-family: 'Lexend', sans-serif; color: #292A2B; margin-bottom: 5px;}
 p    {font-family: 'Lexend', sans-serif; color: #292A2B; margin-bottom: 0px;}
 body, html {background-color: #FFFFFF; margin: 0; padding: 0; height: 100%;}
@@ -65,52 +66,154 @@ body, html {background-color: #FFFFFF; margin: 0; padding: 0; height: 100%;}
   cursor: pointer;
 }
 .button1 {border-radius: 25px;}
+.button1:hover { background-color: #45B0DE; color: white; }
 
-.button1:hover {
-  background-color: #45B0DE;
+* { box-sizing: border-box; }
+
+/* ====== Feedback form styles (merged) ====== */
+main { padding: 24px; }
+form {
+  width: 90%;
+  max-width: 600px;
+  margin: 24px auto;
+  background-color: #f9f9f9;
+  padding: 20px;
+  border-radius: 12px;
+  font-family: 'Lexend', sans-serif;
+  color: #292A2B;
+}
+fieldset { border: none; padding: 0; margin: 0 0 16px; }
+legend { font-weight: bold; margin-bottom: 8px; }
+label { font-weight: bold; display: inline-block; margin: 8px 0 6px; }
+.form-row { margin-bottom: 14px; }
+
+input[type="text"],
+input[type="number"],
+textarea {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 14px;
+  font-family: inherit;
+}
+
+.checkbox-group {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 8px 16px;
+  margin-top: 6px;
+}
+
+button[type="submit"] {
+  background-color: #005499;
   color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 15px;
 }
-
-
-* {
-  box-sizing: border-box;
-}
-
-.row {
-  display: flex;
-  background-color: #0073E6;
-  height: 100%;
-}
-
-.column {
-  display: flex;
-  flex: 50%;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  background-color: #FFFFFF;
-  margin: 0px;
-  padding: 10px;
-  height: 100%;
-}
-
+button[type="submit"]:hover { filter: brightness(1.05); }
+.help { font-size: 12px; opacity: 0.8; }
+.success { color: #0a7a2f; margin-top: 10px; font-weight: 600; }
+.error { color: #b00020; margin-top: 10px; }
 </style>
 </head>
+
 <body>
- <div class="topnav">
-     <a href="home.html">HOME</a>
-     <a href="rAIdio.html">rAIdio</a>
-     <a href="podcasts.html">PODCASTS</a>
-     <a class="active" href="feedback.html">FEEDBACK</a>
-     <a href="about.html">ABOUT</a>
-     <a href="team.html">TEAM</a>
+  <div class="topnav">
+    <a href="home.html">HOME</a>
+    <a href="rAIdio.html">rAIdio</a>
+    <a href="podcasts.html">PODCASTS</a>
+    <a class="active" href="feedback.html">FEEDBACK</a>
+    <a href="about.html">ABOUT</a>
+    <a href="team.html">TEAM</a>
     <input type="search" placeholder="Search">
-  </div> 
+  </div>
 
-<!-- Use div and flex/grid to make a two-column layout -->
+  <main>
+    <h1>Feedback</h1>
 
-    <h1>Empty for now...</h1>
+    <!-- Combined form -->
+    <form id="feedbackForm" novalidate>
+      <fieldset class="form-row">
+        <legend>What did you listen to?</legend>
+        <div class="checkbox-group" role="group" aria-label="Content listened to">
+          <label><input type="checkbox" name="content" value="News"> News</label>
+          <label><input type="checkbox" name="content" value="Weather"> Weather</label>
+          <label><input type="checkbox" name="content" value="Research"> Research</label>
+        </div>
+      </fieldset>
 
+      <div class="form-row">
+        <label for="rating">Rate the podcast (1 to 5 stars):</label>
+        <input id="rating" type="number" name="rating" min="1" max="5" required>
+        <div class="help">Enter a whole number from 1–5.</div>
+      </div>
 
+      <fieldset class="form-row">
+        <legend>What could be better?</legend>
+        <div class="checkbox-group" role="group" aria-label="Areas for improvement">
+          <label><input type="checkbox" name="improvement" value="Audio Quality"> Audio Quality</label>
+          <label><input type="checkbox" name="improvement" value="Content Relevance"> Content Relevance</label>
+        </div>
+      </fieldset>
+
+      <div class="form-row">
+        <label for="comments">Additional Comments:</label>
+        <textarea id="comments" name="comments" rows="4" cols="50" placeholder="Tell us more…"></textarea>
+      </div>
+
+      <div class="form-row">
+        <label for="contact">Optional Contact Info:</label>
+        <input id="contact" type="text" name="contact" placeholder="Name/Email (optional)">
+      </div>
+
+      <button type="submit">Submit</button>
+      <div id="formMsg" aria-live="polite"></div>
+    </form>
+  </main>
+
+  <script>
+    // Minimal client-side handling: collect values and show a confirmation.
+    const form = document.getElementById('feedbackForm');
+    const formMsg = document.getElementById('formMsg');
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      // Basic validation for rating
+      const ratingEl = form.elements['rating'];
+      const ratingVal = parseInt(ratingEl.value, 10);
+      if (Number.isNaN(ratingVal) || ratingVal < 1 || ratingVal > 5) {
+        formMsg.className = 'error';
+        formMsg.textContent = 'Please enter a rating from 1 to 5.';
+        ratingEl.focus();
+        return;
+      }
+
+      // Collect checkbox groups
+      const getCheckedValues = (name) =>
+        Array.from(form.querySelectorAll(`input[name="${name}"]:checked`)).map(i => i.value);
+
+      const payload = {
+        content: getCheckedValues('content'),
+        rating: ratingVal,
+        improvement: getCheckedValues('improvement'),
+        comments: form.elements['comments'].value.trim(),
+        contact: form.elements['contact'].value.trim(),
+        submittedAt: new Date().toISOString(),
+      };
+
+      // For now: just show success + log. (Hook up to an API later.)
+      console.log('Feedback payload:', payload);
+      formMsg.className = 'success';
+      formMsg.textContent = 'Thanks! Your feedback was captured locally (check console).';
+
+      // Optional: reset form
+      form.reset();
+    });
+  </script>
 </body>
-</html> 
+</html>
