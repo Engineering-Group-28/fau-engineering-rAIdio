@@ -121,6 +121,19 @@ button[type="submit"]:hover { filter: brightness(1.05); }
 </style>
 </head>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+  // TODO: replace with your actual values:
+  const SUPABASE_URL = "https://vefipiufdaxfllfwtavs.supabase.co";
+  const SUPABASE_ANON = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZlZmlwaXVmZGF4ZmxsZnd0YXZzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTczMDAyNTQsImV4cCI6MjA3Mjg3NjI1NH0.evvilDK6acch5X3IKyWZUyiwSUtlWg1s97zOaFUKXCs";
+  const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON, {
+    auth: { persistSession: false, autoRefreshToken: false, detectSessionInUrl: false }
+  });
+
+</script>
+
+
+
 <body>
   <div class="topnav">
     <a href="home.html">HOME</a>
@@ -180,7 +193,7 @@ button[type="submit"]:hover { filter: brightness(1.05); }
     const form = document.getElementById('feedbackForm');
     const formMsg = document.getElementById('formMsg');
 
-    form.addEventListener('submit', (e) => {
+    form.addEventListener('submit', async (e) => {
       e.preventDefault();
 
       // Basic validation for rating
@@ -206,13 +219,29 @@ button[type="submit"]:hover { filter: brightness(1.05); }
         submittedAt: new Date().toISOString(),
       };
 
-      // For now: just show success + log. (Hook up to an API later.)
-      console.log('Feedback payload:', payload);
+      try {
+      console.log('Payload:', payload);
+      // Insert data into Supabase
+      const { data, error } = await supabase.from('feedback').insert([payload]);
+
+      if (error) {
+        throw error;
+      }
+
+      // Show success message
       formMsg.className = 'success';
-      formMsg.textContent = 'Thanks! Your feedback will help us improve.';
+      formMsg.textContent = 'Thanks! Your feedback has been submitted.';
+      console.log('Inserted data:', data);
 
       // Optional: reset form
       form.reset();
+    } catch (err) {
+      console.error('Error inserting data:', err);
+      formMsg.className = 'error';
+      formMsg.textContent = `An error occurred while submitting your feedback. Please try again. ${err.message}`;
+    }
+
+
     });
   </script>
 </body>
