@@ -295,5 +295,37 @@ button[type="submit"]:hover { filter: brightness(1.05); }
 
     });
   </script>
+
+<script>
+  const loginLink = document.getElementById("loginLink");
+  const logoutBtn = document.getElementById("logoutBtn");
+
+  // Check session on load
+  (async () => {
+    const { data: { session } } = await supabase.auth.getSession();
+    if (session) {
+      // User is logged in
+      loginLink.style.display = "none";
+      logoutBtn.style.display = "inline-block";
+    } else {
+      // User not logged in
+      loginLink.style.display = "inline-block";
+      logoutBtn.style.display = "none";
+    }
+  })();
+
+  // Handle logout click
+  logoutBtn?.addEventListener("click", async () => {
+    await supabase.auth.signOut();
+    alert("Logged out!");
+    // Show login link again
+    loginLink.style.display = "inline-block";
+    logoutBtn.style.display = "none";
+    // Optionally redirect to home
+    window.location.href = "home.html";
+  });
+</script>
+  
+
 </body>
 </html>
