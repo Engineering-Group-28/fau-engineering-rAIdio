@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>FAU Engineering rAIdio Station — Profile</title>
+  <style>
+    body {
+      font-family: 'Lexend', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f4;
+    }
+
+    .topnav {
+      display: flex;
+      align-items: center;
+      height: 8%;
+      text-decoration: none;
+      font-family: 'Lexend', sans-serif;
+      column-gap: 20px;
+      overflow: hidden;
+      margin: 0;
+      padding: 0px 60px;
+      background-image: linear-gradient(to right, #003366, #45B0DE, #DE3347);
+    }
+
+    .topnav a {
+      text-decoration: none;
+      color: #FFFFFF;
+      font-weight: bold;
+      padding: 14px 16px;
+      font-size: 17px;
+    }
+
+    .topnav a:hover {
+      text-decoration: underline;
+      text-underline-offset: 10px;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: 50px auto;
+      background: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+      text-align: center;
+      color: #292A2B;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    label {
+      font-weight: bold;
+    }
+
+    input {
+      padding: 10px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    button {
+      padding: 10px;
+      font-size: 16px;
+      border: none;
+      border-radius: 5px;
+      background-color: #003366;
+      color: white;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #45B0DE;
+    }
+
+    .success {
+      color: #0a7a2f;
+      margin-top: 10px;
+      font-weight: 600;
+    }
+
+    .error {
+      color: #b00020;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="topnav">
+    <a href="home.html">Home</a>
+    <a href="rAIdio.html">rAIdio</a>
+    <a href="podcasts.html">Podcasts</a>
+    <a href="feedback.html">Feedback</a>
+    <a href="about.html">About</a>
+    <a href="team.html">Team</a>
+    <a href="profile.html" class="active">Profile</a>
+    <a id="loginLink" href="login.html">Login</a>
+    <button id="logoutBtn" style="display:none;">Logout</button>
+  </div>
+
+  <div class="container">
+    <h1>Profile</h1>
+    <form id="profileForm">
+      <label for="name">Name:</label>
+      <input type="text" id="name" name="name" placeholder="Enter your name" required>
+
+      <label for="studentId">Student ID:</label>
+      <input type="text" id="studentId" name="studentId" placeholder="Enter your student ID" required>
+
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email" placeholder="Enter your email" required disabled>
+
+      <label for="phone">Phone Number:</label>
+      <input type="text" id="phone" name="phone" placeholder="Enter your phone number">
+
+      <button type="submit">Update Profile</button>
+      <div id="formMsg" aria-live="polite"></div>
+    </form>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script>
+    const SUPABASE_URL = "https://vefipiufdaxfllfwtavs.supabase.co";
+    const SUPABASE_ANON = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZlZmlwaXVmZGF4ZmxsZnd0YXZzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTczMDAyNTQsImV4cCI6MjA3Mjg3NjI1NH0.evvilDK6acch5X3IKyWZUyiwSUtlWg1s97zOaFUKXCs";
+    const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON);
+
+    const form = document.getElementById('profileForm');
+    const formMsg = document.getElementById('formMsg');
+
+    // Fetch user profile on page load
+    (async () => {
+      const { data: { session } } = await supabase.auth.getSession();
+      if (!session) {
+        alert('You need to log in first!');
+        window.location.href = 'login.html';
+        return;
+      }
+
+      const { data, error } = await supabase.from('profiles').select('*').eq('id', session.user.id).single();
+      if (error) {
+        console.error('Error fetching profile:', error);
+        return;
+      }
+
+      // Populate form with user data
+      document.getElementById('name').value = data.name || '';
+      document.getElementById('studentId').value = data.student_id || '';
+      document.getElementById('email').value = data.email || '';
+      document.getElementById('phone').value = data.phone || '';
+    })();
+
+    // Handle profile update
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const { data: { session } } = await supabase.auth.getSession();
+      if (!session) {
+        alert('You need to log in first!');
+        window.location.href = 'login.html';
+        return;
+      }
+
+      const payload = {
+        name: form.elements['name'].value.trim(),
+        student_id: form.elements['studentId'].value.trim(),
+        phone: form.elements['phone'].value.trim(),
+      };
+
+      try {
+        const { error } = await supabase.from('profiles').update(payload).eq('id', session.user.id);
+        if (error) throw error;
+
+        formMsg.className = 'success';
+        formMsg.textContent = 'Profile updated successfully!';
+      } catch (err) {
+        console.error('Error updating profile:', err);
+        formMsg.className = 'error';
+        formMsg.textContent = 'An error occurred while updating your profile. Please try again.';
+      }
+    });
+
+    // Handle logout
+    const logoutBtn = document.getElementById('logoutBtn');
+    logoutBtn.addEventListener('click', async () => {
+      await supabase.auth.signOut();
+      alert('Logged out!');
+      window.location.href = 'home.html';
+    });
+
+    // Show/hide login/logout buttons
+    (async () => {
+      const { data: { session } } = await supabase.auth.getSession();
+      if (session) {
+        document.getElementById('loginLink').style.display = 'none';
+        logoutBtn.style.display = 'inline-block';
+      } else {
+        document.getElementById('loginLink').style.display = 'inline-block';
+        logoutBtn.style.display = 'none';
+      }
+    })();
+  </script>
+</body>
+</html>
