@@ -4,15 +4,31 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>FAU Engineering rAIdio Station</title>
 <style>
-h1   {font-family: 'Lexend', sans-serif; color: #292A2B; margin-bottom: 5px;}
-p    {font-family: 'Lexend', sans-serif; color: #292A2B; margin-bottom: 0px;}
-body, html {background-color: #FFFFFF; margin: 0; padding: 0; height: 100%;}
+h1 {
+  font-family: 'Lexend', sans-serif; 
+  color: #292A2B; 
+  margin-bottom: 10px; 
+  line-height: 1.5; 
+  font-size: 60px;
+}
+
+p  {
+  font-family: 'Lexend', 
+  sans-serif; color: #292A2B; 
+  margin-bottom: 10px; 
+  line-height: 1.5; 
+  padding: 10px 10px 10px 10px;
+  }
+
+  body, html {background-color: #FFFFFF; margin: 0; padding: 0; height: 100%;}
 
 .topnav {
   display: flex;
   align-items: center;
   height: 80px;
   text-decoration: none;
+  font-family: 'Lexend', sans-serif;
+  font-weight: 400;
   column-gap: 20px;
   overflow: hidden;
   margin: 0;
@@ -28,6 +44,7 @@ body, html {background-color: #FFFFFF; margin: 0; padding: 0; height: 100%;}
   padding: 14px 16px;
   font-family: 'Lexend', sans-serif;
   font-size: 17px;
+  font-weight: 400;
 }
 
 .topnav a:hover {
@@ -49,7 +66,7 @@ body, html {background-color: #FFFFFF; margin: 0; padding: 0; height: 100%;}
   margin-top: 4px;
   margin-right: 16px;
   font-size: 14px;
-  border-radius: 25px;
+  border-radius: 2px;
 }
 
 .button {
@@ -64,7 +81,7 @@ body, html {background-color: #FFFFFF; margin: 0; padding: 0; height: 100%;}
   margin: 20px 2px;
   cursor: pointer;
 }
-.button1 {border-radius: 25px;}
+.button1 {border-radius: 3px;}
 
 .button1:hover {
   background-color: #45B0DE;
@@ -90,33 +107,42 @@ body, html {background-color: #FFFFFF; margin: 0; padding: 0; height: 100%;}
   align-items: center;
   background-color: #FFFFFF;
   margin: 0px;
-  padding: 10px;
+  padding: 10px 10px 10px 10px;
   height: 100%;
+}
+
+.graphic {
+  width: 75%;
+}
+
+.logo {
+  height: 75%;
 }
 
 </style>
 </head>
 <body>
  <div class="topnav">
-     <a class="active" href="home.html">HOME</a>
+    <img class="logo" src="images/owl_radio_nav.png" alt="Engineering rAIdio">
+     <a class="active" href="home.html">Home</a>
      <a href="rAIdio.html">rAIdio</a>
-     <a href="podcasts.html">PODCASTS</a>
-     <a href="feedback.html">FEEDBACK</a>
-     <a href="about.html">ABOUT</a>
-     <a href="team.html">TEAM</a>
+     <a href="podcasts.html">Podcasts</a>
+     <a href="feedback.html">Feedback</a>
+     <a href="about.html">About</a>
     <input type="search" placeholder="Search">
   </div> 
 
 <!-- Use div and flex/grid to make a two-column layout -->
 <div class="row">
   <div class="column">
-    <h1>Welcome</h1>
-    <p>The rAIdio station plays FAU news, events, and research, along with state and county happenings.</p>
-    <p>Listen to the rAIdio by clicking the button below!</p>
-    <input type="button" class="button button1" onclick="alert('Clicked!')" value="Listen Now"> 
+    <h1>Welcome to <br>
+    <span style="color: #DE3347;">FAU</span> <span style="color: #003366;">Engineering</span></h1>
+    <p>The rAIdio station plays FAU news, events, and research, along with state and county happenings.<br>
+    Listen to the rAIdio by clicking the button below!</p>
+    <input type="button" class="button button1" onclick="document.location='rAIdio.html'" value="Listen Now"> 
   </div>
   <div class="column">
-    <h2> Image Here </h2>
+    <img class="graphic" src="images/homepage_graphic.png" alt="Engineering rAIdio">
   </div>
 
 </body>
