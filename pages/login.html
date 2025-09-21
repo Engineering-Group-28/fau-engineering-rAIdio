@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Login — FAU rAIdio</title>
+<style>
+  form { max-width:400px; margin:50px auto; display:flex; flex-direction:column; gap:10px; }
+  input { padding:8px; border:1px solid #ccc; border-radius:6px; }
+  button { padding:10px; background:#003366; color:#fff; border:none; border-radius:6px; cursor:pointer; }
+</style>
+</head>
+<body>
+  <h1 style="text-align:center;">Login / Sign Up</h1>
+  <form id="loginForm">
+    <input type="email" id="email" placeholder="Email" required>
+    <input type="password" id="password" placeholder="Password" required>
+    <button type="submit">Login / Sign Up</button>
+  </form>
+  <p id="msg" style="text-align:center;"></p>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+  const SUPABASE_URL = "https://vefipiufdaxfllfwtavs.supabase.co";
+  const SUPABASE_ANON ="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZlZmlwaXVmZGF4ZmxsZnd0YXZzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTczMDAyNTQsImV4cCI6MjA3Mjg3NjI1NH0.evvilDK6acch5X3IKyWZUyiwSUtlWg1s97zOaFUKXCs";
+
+  const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON);
+
+  const form = document.getElementById("loginForm");
+  const msg = document.getElementById("msg");
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
+
+    // Try sign in first
+    let { data, error } = await supabase.auth.signInWithPassword({ email, password });
+
+    if (error && error.message.includes("Invalid login credentials")) {
+      // If no user, sign up
+      ({ data, error } = await supabase.auth.signUp({ email, password }));
+    }
+
+    if (error) {
+      msg.textContent = "Error: " + error.message;
+    } else {
+      msg.textContent = "Success! Redirecting…";
+      window.location.href = "home.html";
+    }
+  });
+</script>
+</body>
+</html>
