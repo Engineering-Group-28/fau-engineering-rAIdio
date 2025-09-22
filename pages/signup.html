@@ -177,68 +177,66 @@ html {background-color: #FFFFFF; margin: 0; padding: 0; height: 100%;}
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script>
-    const SUPABASE_URL = "https://vefipiufdaxfllfwtavs.supabase.co";
-    const SUPABASE_ANON = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZlZmlwaXVmZGF4ZmxsZnd0YXZzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTczMDAyNTQsImV4cCI6MjA3Mjg3NjI1NH0.evvilDK6acch5X3IKyWZUyiwSUtlWg1s97zOaFUKXCs";
-    const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON);
+<script>
+  const SUPABASE_URL = "https://vefipiufdaxfllfwtavs.supabase.co";
+  const SUPABASE_ANON = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZlZmlwaXVmZGF4ZmxsZnd0YXZzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTczMDAyNTQsImV4cCI6MjA3Mjg3NjI1NH0.evvilDK6acch5X3IKyWZUyiwSUtlWg1s97zOaFUKXCs"; // keep your anon key
+  const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON);
+  
 
-    const form = document.getElementById('signupForm');
-    const formMsg = document.getElementById('formMsg');
+  const form = document.getElementById('signupForm');
+  const formMsg = document.getElementById('formMsg');
 
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
 
-      const name = form.elements['name'].value.trim();
-      const studentId = form.elements['studentId'].value.trim();
-      const email = form.elements['email'].value.trim();
-      const phone = form.elements['phone'].value.trim();
-      const password = form.elements['password'].value.trim();
+    const name = form.elements['name'].value.trim();
+    const studentId = form.elements['studentId'].value.trim();
+    const email = form.elements['email'].value.trim();
+    const phone = form.elements['phone'].value.trim();
+    const password = form.elements['password'].value.trim();
 
-      try {
-        // Create user in Supabase Auth
-        const { data: authData, error: authError } = await supabase.auth.signUp({
-          email,
-          password,
-        });
+    try {
+      // 1) Create user in Supabase Auth
+      const { data: authData, error: authError } = await supabase.auth.signUp({
+        email,
+        password,
+      });
 
-        console.log('Auth Data:', authData);
-        console.log('Auth Error:', authError);
-
-        if (authError) {
-          console.error('Auth Error:', authError);
-          throw authError;
-        }
-
-        // Inform the user to confirm their email
-        formMsg.className = 'success';
-        formMsg.textContent = 'Sign up successful! Please check your email to confirm your account.';
-
-        // Insert user profile into the 'profiles' table after sign-up
-        if (authData.user) {
-            const { error: profileError } = await supabase.from('profiles').insert([{
-                id: authData.user.id,
-                name,
-                student_id: studentId,
-                email,
-                phone,
-         }]);
-
-          console.log('Profile Insert Error:', profileError);
-
-          if (profileError) {
-            console.error('Profile Insert Error:', profileError);
-            throw profileError;
-          }
-
-          formMsg.className = 'success';
-          formMsg.textContent = 'Profile data saved successfully!';
-        }
-      } catch (err) {
-        console.error('Error during sign up:', err);
-        formMsg.className = 'error';
-        formMsg.textContent = 'An error occurred during sign up. Please try again.';
+      if (authError) {
+        console.error("Auth Error:", authError);
+        formMsg.className = "error";
+        formMsg.textContent = authError.message;
+        return;
       }
-    });
-  </script>
+
+      // 2) Insert profile (non-blocking)
+      if (authData.user) {
+        const { error: profileError } = await supabase.from("profiles").insert([{
+          id: authData.user.id,
+          name,
+          student_id: studentId,
+          email,
+          phone,
+        }]);
+
+        if (profileError) {
+          console.warn("Profile insert failed:", profileError.message);
+          // still let user proceed
+        }
+      }
+
+      // 3) Success message
+      formMsg.className = "success";
+      formMsg.textContent = "Sign up successful! Please check your email to confirm your account.";
+      // optional redirect:
+      // setTimeout(() => window.location.href = "login.html", 2000);
+
+    } catch (err) {
+      console.error("Unexpected Error:", err);
+      formMsg.className = "error";
+      formMsg.textContent = "Unexpected error. See console for details.";
+    }
+  });
+</script>
 </body>
 </html>
