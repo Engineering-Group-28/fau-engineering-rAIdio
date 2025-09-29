@@ -200,6 +200,7 @@ html {background-color: #FFFFFF; margin: 0; padding: 0; height: 100%;}
     <a href="feedback.html">Feedback</a>
     <a href="about.html">About</a>
     <a id="loginLink" href="login.html">Login</a>
+    <a id="profileLink" href="profile.html" style="display:none;">Profile</a>
     <button id="logoutBtn" style="display:none;">Logout</button>
     <input type="search" placeholder="Search">
   </div>
@@ -229,20 +230,28 @@ html {background-color: #FFFFFF; margin: 0; padding: 0; height: 100%;}
 
   const loginLink = document.getElementById("loginLink");
   const logoutBtn = document.getElementById("logoutBtn");
+ const profileLink = document.getElementById("profileLink");
 
-  // Check session on load
   (async () => {
     const { data: { session } } = await supabase.auth.getSession();
+
     if (session) {
-      loginLink.style.display = "none";
-      logoutBtn.style.display = "inline-block";
+      // User is logged in → show profile + logout
+      loginLink.style.display   = "none";
+      logoutBtn.style.display   = "inline-block";
+      profileLink.style.display = "inline-block";
+    } else {
+      // Not logged in → only show login
+      loginLink.style.display   = "inline-block";
+      logoutBtn.style.display   = "none";
+      profileLink.style.display = "none";
     }
   })();
 
-  // Logout
-  logoutBtn?.addEventListener("click", async () => {
+  // Logout handler
+  logoutBtn.addEventListener("click", async () => {
     await supabase.auth.signOut();
-    alert("Logged out!");
+    localStorage.removeItem("role"); // clear demo admin flag if you used it
     window.location.href = "home.html";
   });
 </script>
