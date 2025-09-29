@@ -183,17 +183,6 @@ button[type="submit"]:hover { filter: brightness(1.05); }
 </style>
 </head>
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script>
- 
-  const SUPABASE_URL = "https://vefipiufdaxfllfwtavs.supabase.co";
-  const SUPABASE_ANON = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZlZmlwaXVmZGF4ZmxsZnd0YXZzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTczMDAyNTQsImV4cCI6MjA3Mjg3NjI1NH0.evvilDK6acch5X3IKyWZUyiwSUtlWg1s97zOaFUKXCs";
-  const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON, {
-    auth: { persistSession: false, autoRefreshToken: false, detectSessionInUrl: false }
-  });
-
-</script>
-
 
 
 <body>
@@ -202,7 +191,7 @@ button[type="submit"]:hover { filter: brightness(1.05); }
     <a href="home.html">Home</a>
     <a href="rAIdio.html">rAIdio</a>
     <a href="podcasts.html">Podcasts</a>
-    <a class="active" href="feedback.html">Feedback</a>
+    <a href="feedback.html" class="active">Feedback</a>
     <a href="about.html">About</a>
     <a id="loginLink" href="login.html">Login</a>
     <button id="logoutBtn" style="display:none;">Logout</button>
@@ -308,8 +297,13 @@ button[type="submit"]:hover { filter: brightness(1.05); }
 
     });
   </script>
-
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
+  const SUPABASE_URL = "https://vefipiufdaxfllfwtavs.supabase.co";
+  const SUPABASE_ANON = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZlZmlwaXVmZGF4ZmxsZnd0YXZzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTczMDAyNTQsImV4cCI6MjA3Mjg3NjI1NH0.evvilDK6acch5X3IKyWZUyiwSUtlWg1s97zOaFUKXCs";
+  const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON, {
+    auth: { persistSession: false, autoRefreshToken: false, detectSessionInUrl: false }
+  });
   const loginLink = document.getElementById("loginLink");
   const logoutBtn = document.getElementById("logoutBtn");
 
@@ -317,17 +311,12 @@ button[type="submit"]:hover { filter: brightness(1.05); }
   (async () => {
     const { data: { session } } = await supabase.auth.getSession();
     if (session) {
-      // User is logged in
       loginLink.style.display = "none";
       logoutBtn.style.display = "inline-block";
-    } else {
-      // User not logged in
-      loginLink.style.display = "inline-block";
-      logoutBtn.style.display = "none";
     }
   })();
 
-  // Handle logout click
+  // Logout
   logoutBtn?.addEventListener("click", async () => {
     await supabase.auth.signOut();
     alert("Logged out!");

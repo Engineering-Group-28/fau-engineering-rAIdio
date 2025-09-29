@@ -7,9 +7,10 @@
 h1 {
   font-family: 'Lexend', sans-serif; 
   color: #292A2B; 
-  margin-bottom: 5px; 
+  margin-bottom: 10px; 
   line-height: 1.5; 
   font-size: 60px;
+  text-align: center;
 }
 
 p  {
@@ -44,7 +45,7 @@ html {background-color: #FFFFFF; margin: 0; padding: 0; height: 100%;}
   overflow: hidden;
   margin: 0;
   padding: 0px 60px 0px 60px;
-  background-image: linear-gradient(to right, #003366, #85B9EB, #DA3A46);
+  background-image: linear-gradient(to right, #003366, #85B9EB, #DE3347);
 }
 
 .topnav a {
@@ -95,7 +96,7 @@ html {background-color: #FFFFFF; margin: 0; padding: 0; height: 100%;}
 .button1 {border-radius: 3px;}
 
 .button1:hover {
-  background-color: #85B9EB;
+  background-color: #45B0DE;
   color: white;
 }
 
@@ -106,7 +107,8 @@ html {background-color: #FFFFFF; margin: 0; padding: 0; height: 100%;}
 
 .row {
   display: flex;
-  height: 92%; /*This will cause a scroll at 100%*/
+  background-color: #0073E6;
+  height: 100%;
 }
 
 .column {
@@ -115,45 +117,18 @@ html {background-color: #FFFFFF; margin: 0; padding: 0; height: 100%;}
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  background-color: #FFFFFF;
   margin: 0px;
   padding: 10px 10px 10px 10px;
+  height: 100%;
 }
 
 .graphic {
-  width: 85%;
+  width: 75%;
 }
 
 .logo {
   height: 75%;
-}
-
-#loginForm {
-  display: flex;
-  flex-direction: column;
-  align-items: center; 
-  gap: 10px;
-}
-
-#loginForm input {
-  width: 15%; 
-  padding: 10px;
-  font-size: 16px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-}
-
-#loginForm button {
-  width: 10%;
-  padding: 10px;
-  font-size: 16px;
-  border-radius: 5px;
-  background-image: linear-gradient(to right, #003366, #45B0DE, #DE3347);
-}
-
-#loginForm .signup-link {
-  margin-top: 10px;
-  text-align: center;
-  font-size: 14px;
 }
 </style>
 </head>
@@ -165,56 +140,40 @@ html {background-color: #FFFFFF; margin: 0; padding: 0; height: 100%;}
     <a href="podcasts.html">Podcasts</a>
     <a href="feedback.html">Feedback</a>
     <a href="about.html">About</a>
-    <a id="loginLink" href="login.html" class="active">Login</a>
-    <button id="logoutBtn" style="display:none;">Logout</button>
+    <a class="active" href="admin.html">Admin</a>
+    <button id="logoutBtn">Logout</button>
     <input type="search" placeholder="Search">
 </div>
 
-<h1 style="text-align:center;">Login</h1>
-<form id="loginForm">
-  <input type="email" id="email" placeholder="Email" required>
-  <input type="password" id="password" placeholder="Password" required>
-  <button type="submit">Login</button>
-  <div class="signup-link">
-    <p>Don't have an account? <a href="signup.html">Sign Up</a></p>
-  </div>
-</form>
-<p id="msg" style="text-align:center;"></p>
+<!-- Use div and flex/grid to make a two-column layout -->
+
+    <h1>Empty for now...</h1>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
   const SUPABASE_URL = "https://vefipiufdaxfllfwtavs.supabase.co";
   const SUPABASE_ANON = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZlZmlwaXVmZGF4ZmxsZnd0YXZzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTczMDAyNTQsImV4cCI6MjA3Mjg3NjI1NH0.evvilDK6acch5X3IKyWZUyiwSUtlWg1s97zOaFUKXCs";
-
   const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON);
 
-  const form = document.getElementById("loginForm");
-  const msg = document.getElementById("msg");
+  const loginLink = document.getElementById("loginLink");
+  const logoutBtn = document.getElementById("logoutBtn");
 
-  form.addEventListener("submit", async (e) => {
-    e.preventDefault();
-    const email = document.getElementById("email").value;
-    const password = document.getElementById("password").value;
-
-    if ((email.toLowerCase() === "admin@admin.com" || email.toLowerCase() === "admin") && password === "admin") {
-      msg.textContent = "Welcome, Admin! Redirecting…";
-      msg.style.color = "green";
-      window.location.href = "admin.html";
-      return;
+  // Check session on load
+  (async () => {
+    const { data: { session } } = await supabase.auth.getSession();
+    if (session) {
+      loginLink.style.display = "none";
+      logoutBtn.style.display = "inline-block";
     }
+  })();
 
-    const { data: authData, error } = await supabase.auth.signInWithPassword({ email, password });
-    if (error) {
-      msg.textContent = "Login failed: " + error.message;
-      msg.style.color = "red";
-    } else {
-      msg.textContent = "Login successful! Redirecting…";
-      msg.style.color = "green";
-      setTimeout(() => {
-        window.location.href = "home.html";
-      }, 1000);
-    }
+  // Logout
+  logoutBtn?.addEventListener("click", async () => {
+    await supabase.auth.signOut();
+    alert("Logged out!");
+    window.location.href = "home.html";
   });
 </script>
+
 </body>
-</html>
+</html> 
