@@ -53,9 +53,9 @@ body {
   padding: 0; 
   height: 100%;
   background-image: url('images/background_idea.png');
-  background-color: #ffffff; /* Fallback color */
-  background-repeat: no-repeat; /* Prevents image from repeating */
-  background-size: cover; /* Scales image to cover the entire background */
+  background-color: #ffffff;
+  background-repeat: no-repeat;
+  background-size: cover;
   background-attachment: scroll;
   }
 
@@ -72,7 +72,7 @@ html {background-color: #FFFFFF; margin: 0; padding: 0; height: 100%;}
   overflow: hidden;
   margin: 0;
   padding: 0px 60px 0px 60px;
-  background-image: linear-gradient(to right, #003366, #85B9EB, #DE3347);
+  background-image: linear-gradient(to right, #003366, #85B9EB, #CC0000);
 }
 
 .topnav a {
@@ -123,7 +123,7 @@ html {background-color: #FFFFFF; margin: 0; padding: 0; height: 100%;}
 .button1 {border-radius: 3px;}
 
 .button1:hover {
-  background-color: #45B0DE;
+  background-color: #85B9EB;
   color: white;
 }
 
@@ -156,7 +156,7 @@ html {background-color: #FFFFFF; margin: 0; padding: 0; height: 100%;}
   height: 75%;
 }
 
-/* rAIdio */
+/* rAIdio & podcasts*/
 .container {
   display: grid;
   width: 60%;
@@ -164,7 +164,7 @@ html {background-color: #FFFFFF; margin: 0; padding: 0; height: 100%;}
   grid-template-columns: 300px 300px 300px;
   grid-template-rows: 300px 100px 300px;
   column-gap: 2.9%;
-  height: 92%;
+  height: 50%;
   padding: 1%;
 }
 
@@ -188,7 +188,7 @@ html {background-color: #FFFFFF; margin: 0; padding: 0; height: 100%;}
   font-family: sans-serif;
   font-size: 16px;
 }
-/* rAIdio end */
+/* rAIdio & podcasts end */
 </style>
 </head>
 <body>
@@ -212,13 +212,11 @@ html {background-color: #FFFFFF; margin: 0; padding: 0; height: 100%;}
 
   <div class="container">
     <div class="withbg"><img src="images/fau_engineering.png" width="250" alt="FAU Engineering"></div>
-    <div class="withbg"><img src="images/research_icon.png" width="250" alt="Research"></div>
-    <div class="withbg"><img src="images/student_campus_life.png" width="250" alt="Student & Campus Life"></div> 
+    <div class="withbg"><img src="images/fau_general_news.png" width="200" alt="Research"></div>
+    <div class="withbg"><img src="images/local_news.png" width="220" alt="Student & Campus Life"></div> 
     <div class="adjust">FAU Engineering</div> 
-    <div class="adjust">Research</div> 
-    <div class="adjust">Student & Campus Life</div> 
-    <div class="withbg"><img src="images/local_news.png" width="250" alt="Weather"></div>
-    <div class="withbg"><img src="images/weather.png" width="250" alt="Weather"></div>
+    <div class="adjust">General FAU News & Events</div> 
+    <div class="adjust">Local News</div> 
   </div>
  
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
