@@ -4,6 +4,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>FAU Engineering rAIdio Station</title>
 <style>
+/* Your existing styles */
 h1 {
   font-family: 'Lexend', sans-serif; 
   color: #292A2B; 
@@ -19,7 +20,7 @@ p  {
   margin-bottom: 10px; 
   line-height: 1.5; 
   padding: 10px 10px 10px 10px;
-  }
+}
 
 body {
   margin: 0; 
@@ -30,7 +31,7 @@ body {
   background-repeat: no-repeat; /* Prevents image from repeating */
   background-size: cover; /* Scales image to cover the entire background */
   background-attachment: fixed;
-  }
+}
 
 html {background-color: #FFFFFF; margin: 0; padding: 0; height: 100%;}
 
@@ -93,9 +94,8 @@ html {background-color: #FFFFFF; margin: 0; padding: 0; height: 100%;}
   margin: 20px 2px;
   cursor: pointer;
 }
-.button1 {border-radius: 3px;}
 
-.button1:hover {
+button:hover {
   background-color: #45B0DE;
   color: white;
 }
@@ -133,8 +133,8 @@ html {background-color: #FFFFFF; margin: 0; padding: 0; height: 100%;}
 </style>
 </head>
 <body>
- <div class="topnav">
-  <img class="logo" src="images/owl_radio_nav.png" alt="Engineering rAIdio">
+  <div class="topnav">
+    <img class="logo" src="images/owl_radio_nav.png" alt="Engineering rAIdio">
     <a href="home.html">Home</a>
     <a href="rAIdio.html">rAIdio</a>
     <a href="podcasts.html">Podcasts</a>
@@ -144,41 +144,47 @@ html {background-color: #FFFFFF; margin: 0; padding: 0; height: 100%;}
     <a class="active" id="profileLink" href="profile.html" style="display:none;">Profile</a>
     <button id="logoutBtn" style="display:none;">Logout</button>
     <input type="search" placeholder="Search">
-</div>
+  </div>
 
-<!-- Use div and flex/grid to make a two-column layout -->
-<div class="container">
+  <div class="container">
     <h1>Your Profile</h1>
-    <form id="profileForm">
-      <label for="name">Name</label>
-      <input id="name" name="name" type="text">
-
-      <label for="studentId">Student ID</label>
-      <input id="studentId" name="studentId" type="text">
-
-      <label for="email">Email (from login)</label>
-      <input id="email" name="email" type="email" disabled>
-
-      <label for="phone">Phone</label>
-      <input id="phone" name="phone" type="text">
-
-      <button type="submit">Save Changes</button>
-    </form>
+    <div id="profileDisplay">
+      <p><strong>Name:</strong> <span id="displayName">Loading...</span></p>
+      <p><strong>Student ID:</strong> <span id="displayStudentId">Loading...</span></p>
+      <p><strong>Email:</strong> <span id="displayEmail">Loading...</span></p>
+      <p><strong>Phone:</strong> <span id="displayPhone">Loading...</span></p>
+      <p><strong>Role:</strong> <span id="displayRole">Loading...</span></p>
+      <button id="editProfileBtn" class="button">Edit Profile</button>
+    </div>
     <p id="formMsg" class="msg"></p>
   </div>
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script>
     const SUPABASE_URL = "https://vefipiufdaxfllfwtavs.supabase.co";
-    const SUPABASE_ANON = "YOUR-ANON-KEY";
-    const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON);
+    const SUPABASE_ANON = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZlZmlwaXVmZGF4ZmxsZnd0YXZzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTczMDAyNTQsImV4cCI6MjA3Mjg3NjI1NH0.evvilDK6acch5X3IKyWZUyiwSUtlWg1s97zOaFUKXCs";
 
-    const form = document.getElementById("profileForm");
+    const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON, {
+      auth: {
+        persistSession: true, // Ensure session persistence
+      },
+    });
+
     const formMsg = document.getElementById("formMsg");
+    const displayName = document.getElementById("displayName");
+    const displayStudentId = document.getElementById("displayStudentId");
+    const displayEmail = document.getElementById("displayEmail");
+    const displayPhone = document.getElementById("displayPhone");
+    const displayRole = document.getElementById("displayRole");
+    const editProfileBtn = document.getElementById("editProfileBtn");
 
-    // ✅ Protect page: redirect if not logged in
+    // Protect page: redirect if not logged in
     (async () => {
-      const { data: { session } } = await supabase.auth.getSession();
+      const { data: { session }, error } = await supabase.auth.getSession();
+      if (error) {
+        console.error("Error fetching session:", error);
+      }
+
       if (!session) {
         alert("Please log in first.");
         window.location.href = "login.html";
@@ -188,57 +194,60 @@ html {background-color: #FFFFFF; margin: 0; padding: 0; height: 100%;}
       const user = session.user;
 
       // Load profile from DB
-      const { data: profile, error } = await supabase
+      const { data: profile, error: profileError } = await supabase
         .from("profiles")
         .select("*")
         .eq("id", user.id)
         .single();
+      
+      console.log("id:", user.id);
 
-      if (error && error.code !== "PGRST116") {
-        console.error("Error fetching profile:", error);
+      if (profileError) {
+        console.error("Error fetching profile:", profileError); // Log the error
         formMsg.textContent = "Could not load profile.";
         formMsg.className = "msg error";
         return;
       }
 
-      // Prefill form
-      document.getElementById("name").value = profile?.name || "";
-      document.getElementById("studentId").value = profile?.student_id || "";
-      document.getElementById("phone").value = profile?.phone || "";
+      // Display profile data
+      displayName.textContent = profile?.name || "N/A";
+      displayStudentId.textContent = profile?.student_id || "N/A";
+      displayEmail.textContent = user.email || "N/A";
+      displayPhone.textContent = profile?.phone || "N/A";
+      displayRole.textContent = profile?.role || "N/A";
     })();
 
-    // ✅ Save changes
-    form.addEventListener("submit", async (e) => {
-      e.preventDefault();
-
-      const { data: { user } } = await supabase.auth.getUser();
-      if (!user) {
-        alert("Please log in again.");
-        window.location.href = "login.html";
-        return;
-      }
-
-      const updates = {
-        id: user.id,
-        name: form.elements["name"].value.trim(),
-        student_id: form.elements["studentId"].value.trim(),
-        email: user.email,
-        phone: form.elements["phone"].value.trim(),
-        updated_at: new Date().toISOString(),
-      };
-
-      const { error } = await supabase.from("profiles").upsert(updates);
-
-      if (error) {
-        console.error("Update error:", error);
-        formMsg.textContent = "Error saving profile: " + error.message;
-        formMsg.className = "msg error";
-      } else {
-        formMsg.textContent = "Profile updated successfully!";
-        formMsg.className = "msg success";
-      }
+    // Redirect to edit profile page
+    editProfileBtn.addEventListener("click", () => {
+      window.location.href = "edit-profile.html"; // Replace with the actual edit profile page
     });
-  </script>
 
+     const loginLink = document.getElementById("loginLink");
+  const logoutBtn = document.getElementById("logoutBtn");
+ const profileLink = document.getElementById("profileLink");
+
+  (async () => {
+    const { data: { session } } = await supabase.auth.getSession();
+
+    if (session) {
+      // User is logged in → show profile + logout
+      loginLink.style.display   = "none";
+      logoutBtn.style.display   = "inline-block";
+      profileLink.style.display = "inline-block";
+    } else {
+      // Not logged in → only show login
+      loginLink.style.display   = "inline-block";
+      logoutBtn.style.display   = "none";
+      profileLink.style.display = "none";
+    }
+  })();
+
+  // Logout handler
+  logoutBtn.addEventListener("click", async () => {
+    await supabase.auth.signOut();
+    localStorage.removeItem("role"); // clear demo admin flag if you used it
+    window.location.href = "home.html";
+  });
+  </script>
 </body>
-</html> 
+</html>

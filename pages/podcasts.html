@@ -252,7 +252,11 @@ html {background-color: #FFFFFF; margin: 0; padding: 0; height: 100%;}
   const SUPABASE_URL = "https://vefipiufdaxfllfwtavs.supabase.co";
   const SUPABASE_ANON = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZlZmlwaXVmZGF4ZmxsZnd0YXZzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTczMDAyNTQsImV4cCI6MjA3Mjg3NjI1NH0.evvilDK6acch5X3IKyWZUyiwSUtlWg1s97zOaFUKXCs";
 
-  const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON);
+  const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON, {
+  auth: {
+    persistSession: true, // Ensure session persistence
+  },
+});
 
   const loginLink = document.getElementById("loginLink");
   const logoutBtn = document.getElementById("logoutBtn");
@@ -283,4 +287,4 @@ html {background-color: #FFFFFF; margin: 0; padding: 0; height: 100%;}
 </script>
 
 </body>
-</html> 
+</html>

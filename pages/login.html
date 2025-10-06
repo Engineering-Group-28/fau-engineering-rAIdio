@@ -186,7 +186,11 @@ html {background-color: #FFFFFF; margin: 0; padding: 0; height: 100%;}
   const SUPABASE_URL = "https://vefipiufdaxfllfwtavs.supabase.co";
   const SUPABASE_ANON = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZlZmlwaXVmZGF4ZmxsZnd0YXZzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTczMDAyNTQsImV4cCI6MjA3Mjg3NjI1NH0.evvilDK6acch5X3IKyWZUyiwSUtlWg1s97zOaFUKXCs";
 
-  const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON);
+  const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON, {
+    auth: {
+      persistSession: true, // Ensure session persistence
+    },
+  });
 
   const form = document.getElementById("loginForm");
   const msg = document.getElementById("msg");
@@ -196,25 +200,60 @@ html {background-color: #FFFFFF; margin: 0; padding: 0; height: 100%;}
     const email = document.getElementById("email").value;
     const password = document.getElementById("password").value;
 
-    if ((email.toLowerCase() === "admin@admin.com" || email.toLowerCase() === "admin") && password === "admin") {
-      msg.textContent = "Welcome, Admin! Redirecting…";
-      msg.style.color = "green";
-      window.location.href = "admin.html";
-      return;
-    }
+    // Clear any existing session
+    await supabase.auth.signOut();
 
+    // Attempt to log in the user
     const { data: authData, error } = await supabase.auth.signInWithPassword({ email, password });
     if (error) {
       msg.textContent = "Login failed: " + error.message;
       msg.style.color = "red";
+      return;
+    }
+
+    // Force refresh the session to ensure the latest data is used
+    const { data: refreshedSession, error: refreshError } = await supabase.auth.getSession();
+    if (refreshError) {
+      console.error("Error refreshing session:", refreshError);
+      msg.textContent = "Login successful, but unable to refresh session.";
+      msg.style.color = "orange";
+      return;
+    }
+
+    const userId = refreshedSession.session.user.id; // Get the latest user ID
+    console.log("Refreshed user ID:", userId);
+
+    // Fetch the user's profile to check their role
+    const { data: profile, error: profileError } = await supabase
+      .from("profiles")
+      .select("role")
+      .eq("id", userId) // Match the logged-in user's ID
+      .single();
+
+    if (profileError) {
+      console.error("Error fetching user profile:", profileError);
+      msg.textContent = "Login successful, but unable to verify user role.";
+      msg.style.color = "orange";
+      return;
+    }
+
+    console.log("User ID:", userId); // Log the user ID
+    console.log("Fetched profile:", profile); // Log the entire profile object
+    console.log("User role:", profile.role); // Log the role specifically
+
+    // Redirect based on role
+    if (profile.role.trim().toLowerCase() === "admin") {
+      msg.textContent = "Welcome, Admin! Redirecting…";
+      msg.style.color = "green";
+      window.location.href = "admin.html"; // Redirect to the admin page
     } else {
       msg.textContent = "Login successful! Redirecting…";
       msg.style.color = "green";
-      setTimeout(() => {
-        window.location.href = "home.html";
-      }, 1000);
+      window.location.href = "home.html"; // Redirect to the home page
     }
   });
 </script>
 </body>
 </html>
+
+
