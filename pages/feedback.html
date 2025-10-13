@@ -1,138 +1,82 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>FAU Engineering rAIdio Station — Feedback</title>
-<style>
-/* ====== Your existing site styles ====== */
-h1 {
-  font-family: 'Lexend', sans-serif; 
-  color: #292A2B; 
-  margin-bottom: 10px; 
-  line-height: 1.5; 
-  font-size: 60px;
-  text-align: center;
-}
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>FAU Engineering rAIdio Station — Feedback</title>
+  <style>
+    /* ====== Your existing site styles ====== */
+    h1 {
+      font-family: 'Lexend', sans-serif; 
+      color: #292A2B; 
+      margin-bottom: 10px; 
+      line-height: 1.5; 
+      font-size: 60px;
+      text-align: center;
+    }
 
-p  {
-  font-family: 'Lexend', 
-  sans-serif; color: #292A2B; 
-  margin-bottom: 10px; 
-  line-height: 1.5; 
-  padding: 10px 10px 10px 10px;
-  }
+    body {
+      margin: 0; 
+      padding: 0; 
+      height: 100%;
+      background-image: url('images/background_idea.png');
+      background-color: #ffffff; /* Fallback color */
+      background-repeat: no-repeat; /* Prevents image from repeating */
+      background-size: cover; /* Scales image to cover the entire background */
+      background-attachment: fixed;
+    }
 
-  body {
-  margin: 0; 
-  padding: 0; 
-  height: 100%;
-  background-image: url('images/background_idea.png');
-  background-color: #ffffff; /* Fallback color */
-  background-repeat: no-repeat; /* Prevents image from repeating */
-  background-size: cover; /* Scales image to cover the entire background */
-  background-attachment: fixed;
-  }
+    .topnav {
+      display: flex;
+      align-items: center;
+      height: 8%;
+      text-decoration: none;
+      font-family: 'Lexend', sans-serif;
+      font-weight: 400;
+      column-gap: 20px;
+      overflow: hidden;
+      margin: 0;
+      padding: 0px 60px 0px 60px;
+      background-image: linear-gradient(to right, #003366, #45B0DE, #DE3347);
+    }
+    .topnav .logo {
+      height: 40px;
+      width: auto;
+    }
 
-  html {background-color: #FFFFFF; margin: 0; padding: 0; height: 100%;}
+    .topnav a {
+      display: block;
+      text-decoration: none;
+      color: #FFFFFF;
+      font-weight: bold;
+      padding: 14px 16px;
+      font-family: 'Lexend', sans-serif;
+      font-size: 17px;
+      font-weight: 400;
+    }
 
-.topnav {
-  display: flex;
-  align-items: center;
-  height: 8%;
-  text-decoration: none;
-  font-family: 'Lexend', sans-serif;
-  font-weight: 400;
-  column-gap: 20px;
-  overflow: hidden;
-  margin: 0;
-  padding: 0px 60px 0px 60px;
-  background-image: linear-gradient(to right, #003366, #45B0DE, #DE3347);
-}
+    .topnav a:hover {
+      text-decoration: underline;
+      text-underline-offset: 10px;
+      color: white;
+    }
 
-.topnav a {
-  display: block;
-  text-decoration: none;
-  color: #FFFFFF;
-  font-weight: bold;
-  padding: 14px 16px;
-  font-family: 'Lexend', sans-serif;
-  font-size: 17px;
-  font-weight: 400;
-}
+    .topnav a.active {
+      text-decoration: underline;
+      text-underline-offset: 10px;
+      color: #FFFFFF;
+    }
 
-.topnav a:hover {
-  text-decoration: underline;
-  text-underline-offset: 10px;
-  color: white;
-}
+    .topnav input[type=search] {
+      margin-left: auto;
+      padding: 6px;
+      border: none;
+      margin-top: 4px;
+      margin-right: 16px;
+      font-size: 14px;
+      border-radius: 2px;
+    }
 
-.topnav a.active {
-  text-decoration: underline;
-  text-underline-offset: 10px;
-  color: #FFFFFF;
-}
-
-.topnav input[type=search] {
-  margin-left: auto;
-  padding: 6px;
-  border: none;
-  margin-top: 4px;
-  margin-right: 16px;
-  font-size: 14px;
-  border-radius: 2px;
-}
-
-.button {
-  background-color: #003366;
-  border: none;
-  color: white;
-  padding: 15px 25px 15px 25px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  margin: 20px 2px;
-  cursor: pointer;
-}
-.button1 {border-radius: 3px;}
-
-.button1:hover {
-  background-color: #45B0DE;
-  color: white;
-}
-
-
-* {
-  box-sizing: border-box;
-}
-
-.row {
-  display: flex;
-  background-color: #0073E6;
-  height: 100%;
-}
-
-.column {
-  display: flex;
-  flex: 50%;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  background-color: #FFFFFF;
-  margin: 0px;
-  padding: 10px 10px 10px 10px;
-  height: 100%;
-}
-
-.graphic {
-  width: 85%;
-}
-
-.logo {
-  height: 75%;
-}
-
-/* ====== Feedback form styles (merged) ====== */
+    /* ====== Feedback form styles (merged) ====== */
 main { padding: 24px; }
 form {
   width: 90%;
@@ -152,7 +96,7 @@ label { font-weight: bold; display: inline-block; margin: 8px 0 6px; }
 input[type="text"],
 input[type="number"],
 textarea {
-  width: 100%;
+  width: 95%;
   padding: 10px 12px;
   border: 1px solid #ddd;
   border-radius: 8px;
@@ -167,7 +111,7 @@ textarea {
   margin-top: 6px;
 }
 
-button[type="submit"] {
+    button[type="submit"] {
   background-color: #005499;
   color: white;
   padding: 10px 20px;
@@ -180,14 +124,39 @@ button[type="submit"]:hover { filter: brightness(1.05); }
 .help { font-size: 12px; opacity: 0.8; }
 .success { color: #0a7a2f; margin-top: 10px; font-weight: 600; }
 .error { color: #b00020; margin-top: 10px; }
-</style>
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+
+    table th, table td {
+      border: 1px solid #ddd;
+      padding: 8px;
+      text-align: left;
+    }
+
+    table th {
+      background-color: #003366;
+      color: white;
+    }
+
+    .success {
+      color: #0a7a2f;
+      margin-top: 10px;
+      font-weight: 600;
+    }
+
+    .error {
+      color: #b00020;
+      margin-top: 10px;
+    }
+  </style>
 </head>
-
-
-
 <body>
   <div class="topnav">
-  <img class="logo" src="images/owl_radio_nav.png" alt="Engineering rAIdio">
+    <img class="logo" src="images/fau_engineering.png" alt="Engineering rAIdio">
     <a href="home.html">Home</a>
     <a href="rAIdio.html">rAIdio</a>
     <a href="podcasts.html">Podcasts</a>
@@ -197,19 +166,19 @@ button[type="submit"]:hover { filter: brightness(1.05); }
     <a id="profileLink" href="profile.html" style="display:none;">Profile</a>
     <button id="logoutBtn" style="display:none;">Logout</button>
     <input type="search" placeholder="Search">
-</div>
+  </div>
 
   <main>
     <h1>Feedback</h1>
 
-    <!-- Combined form -->
+    <!-- Feedback Form -->
     <form id="feedbackForm" novalidate>
       <fieldset class="form-row">
         <legend>What did you listen to?</legend>
         <div class="checkbox-group" role="group" aria-label="Content listened to">
-          <label><input type="checkbox" name="content" value="News"> News</label>
-          <label><input type="checkbox" name="content" value="Weather"> Weather</label>
-          <label><input type="checkbox" name="content" value="Research"> Research</label>
+          <label for="content-news"><input id="content-news" type="checkbox" name="content" value="News"> News</label>
+          <label for="content-weather"><input id="content-weather" type="checkbox" name="content" value="Weather"> Weather</label>
+          <label for="content-research"><input id="content-research" type="checkbox" name="content" value="Research"> Research</label>
         </div>
       </fieldset>
 
@@ -222,8 +191,8 @@ button[type="submit"]:hover { filter: brightness(1.05); }
       <fieldset class="form-row">
         <legend>What could be better?</legend>
         <div class="checkbox-group" role="group" aria-label="Areas for improvement">
-          <label><input type="checkbox" name="improvement" value="Audio Quality"> Audio Quality</label>
-          <label><input type="checkbox" name="improvement" value="Content Relevance"> Content Relevance</label>
+          <label for="improvement-audio"><input id="improvement-audio" type="checkbox" name="improvement" value="Audio Quality"> Audio Quality</label>
+          <label for="improvement-content"><input id="improvement-content" type="checkbox" name="improvement" value="Content Relevance"> Content Relevance</label>
         </div>
       </fieldset>
 
@@ -240,9 +209,26 @@ button[type="submit"]:hover { filter: brightness(1.05); }
       <button type="submit">Submit</button>
       <div id="formMsg" aria-live="polite"></div>
     </form>
-  </main>
 
-  <script>
+    <!-- Feedback Table for Admins -->
+    <div id="feedbackTable" style="display: none;">
+      <h2>All Feedback Submissions</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Content</th>
+            <th>Rating</th>
+            <th>Improvement</th>
+            <th>Comments</th>
+            <th>Contact</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </main>
+<script>
     // Minimal client-side handling: collect values and show a confirmation.
     const form = document.getElementById('feedbackForm');
     const formMsg = document.getElementById('formMsg');
@@ -298,16 +284,114 @@ button[type="submit"]:hover { filter: brightness(1.05); }
 
     });
   </script>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script>
-  const SUPABASE_URL = "https://vefipiufdaxfllfwtavs.supabase.co";
-  const SUPABASE_ANON = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZlZmlwaXVmZGF4ZmxsZnd0YXZzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTczMDAyNTQsImV4cCI6MjA3Mjg3NjI1NH0.evvilDK6acch5X3IKyWZUyiwSUtlWg1s97zOaFUKXCs";
-  const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON, {
-    auth: {
-      persistSession: true, // Ensure session persistence
-    },
-  });
-  const loginLink = document.getElementById("loginLink");
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script>
+    const SUPABASE_URL = "https://vefipiufdaxfllfwtavs.supabase.co";
+    const SUPABASE_ANON = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZlZmlwaXVmZGF4ZmxsZnd0YXZzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTczMDAyNTQsImV4cCI6MjA3Mjg3NjI1NH0.evvilDK6acch5X3IKyWZUyiwSUtlWg1s97zOaFUKXCs";
+    const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON);
+
+    const feedbackForm = document.getElementById("feedbackForm");
+    const feedbackTable = document.getElementById("feedbackTable");
+    const feedbackTableBody = feedbackTable.querySelector("tbody");
+
+    (async () => {
+      const { data: { session } } = await supabase.auth.getSession();
+      if (!session) {
+        alert("Please log in first.");
+        window.location.href = "login.html";
+        return;
+      }
+
+      const user = session.user;
+
+      // Fetch user role
+      const { data: profile, error } = await supabase
+        .from("profiles")
+        .select("role")
+        .eq("id", user.id)
+        .single();
+
+      if (error) {
+        console.error("Error fetching user role:", error);
+        return;
+      }
+
+      if (!profile || !profile.role) {
+        console.error("Failed to fetch user role. Profile data:", profile);
+        return;
+      }
+
+      console.log("Fetched user role:", profile.role); // Debugging: Log the role
+
+      // Trim and check role
+      if (profile.role.trim().toLowerCase() === "admin") {
+        console.log("Admin detected. Showing feedback table."); // Debugging
+        feedbackTable.style.display = "block";
+        feedbackForm.style.display = "none"; // Hide the feedback form for admins
+        loadFeedbackTable();
+      } else {
+        console.log("User detected. Showing feedback form."); // Debugging
+        feedbackForm.style.display = "block";
+        feedbackTable.style.display = "none"; // Hide the feedback table for users
+      }
+    })();
+
+    async function loadFeedbackTable() {
+  const { data, error } = await supabase
+    .from("feedback")
+    .select("*")
+    .order("submittedAt", { ascending: false });
+
+  if (error) {
+    console.error("Error loading feedback:", error);
+    return;
+  }
+
+  console.log("Fetched feedback data:", data); // Debugging: Log the fetched data
+
+  if (!data || data.length === 0) {
+    feedbackTableBody.innerHTML = `
+      <tr>
+        <td colspan="6" style="text-align: center;">No feedback submissions found.</td>
+      </tr>
+    `;
+    return;
+  }
+
+  // Safely render each record
+  feedbackTableBody.innerHTML = data.map(fb => {
+    // Safely parse array-like strings such as '["Research"]'
+    let content = fb.content;
+    let improvement = fb.improvement;
+
+    try {
+      if (typeof content === "string" && content.startsWith("[")) {
+        content = JSON.parse(content);
+      }
+      if (typeof improvement === "string" && improvement.startsWith("[")) {
+        improvement = JSON.parse(improvement);
+      }
+    } catch (e) {
+      console.warn("JSON parse issue:", e);
+    }
+
+    // Convert to readable strings
+    const contentStr = Array.isArray(content) ? content.join(", ") : content || "";
+    const improvementStr = Array.isArray(improvement) ? improvement.join(", ") : improvement || "";
+
+    return `
+      <tr>
+        <td>${new Date(fb.submittedAt).toLocaleString()}</td>
+        <td>${contentStr}</td>
+        <td>${fb.rating || ""}</td>
+        <td>${improvementStr}</td>
+        <td>${fb.comments || ""}</td>
+        <td>${fb.contact || ""}</td>
+      </tr>
+    `;
+  }).join("");
+}
+     const loginLink = document.getElementById("loginLink");
   const logoutBtn = document.getElementById("logoutBtn");
  const profileLink = document.getElementById("profileLink");
 
@@ -333,8 +417,6 @@ button[type="submit"]:hover { filter: brightness(1.05); }
     localStorage.removeItem("role"); // clear demo admin flag if you used it
     window.location.href = "home.html";
   });
-</script>
-  
-
+  </script>
 </body>
 </html>
