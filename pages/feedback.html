@@ -295,16 +295,21 @@ button[type="submit"]:hover { filter: brightness(1.05); }
     const feedbackTableBody = feedbackTable.querySelector("tbody");
 
     (async () => {
+      // Allow anonymous users to access the feedback form.
+      // If there is a logged-in session, check role and show admin table for admins.
       const { data: { session } } = await supabase.auth.getSession();
+
       if (!session) {
-        alert("Please log in first.");
-        window.location.href = "login.html";
+        // No session: show the feedback form to anonymous users (no redirect)
+        console.log("No session — showing feedback form for anonymous user.");
+        feedbackForm.style.display = "block";
+        feedbackTable.style.display = "none";
         return;
       }
 
       const user = session.user;
 
-      // Fetch user role
+      // Fetch user role and only show admin view if role === 'admin'
       const { data: profile, error } = await supabase
         .from("profiles")
         .select("role")
@@ -313,26 +318,30 @@ button[type="submit"]:hover { filter: brightness(1.05); }
 
       if (error) {
         console.error("Error fetching user role:", error);
+        // Fall back to showing the feedback form if role check fails
+        feedbackForm.style.display = "block";
+        feedbackTable.style.display = "none";
         return;
       }
 
       if (!profile || !profile.role) {
-        console.error("Failed to fetch user role. Profile data:", profile);
+        console.warn("Profile missing role — showing feedback form.", profile);
+        feedbackForm.style.display = "block";
+        feedbackTable.style.display = "none";
         return;
       }
 
-      console.log("Fetched user role:", profile.role); // Debugging: Log the role
+      console.log("Fetched user role:", profile.role);
 
-      // Trim and check role
       if (profile.role.trim().toLowerCase() === "admin") {
-        console.log("Admin detected. Showing feedback table."); // Debugging
+        console.log("Admin detected. Showing feedback table.");
         feedbackTable.style.display = "block";
         feedbackForm.style.display = "none"; // Hide the feedback form for admins
         loadFeedbackTable();
       } else {
-        console.log("User detected. Showing feedback form."); // Debugging
+        console.log("User detected. Showing feedback form.");
         feedbackForm.style.display = "block";
-        feedbackTable.style.display = "none"; // Hide the feedback table for users
+        feedbackTable.style.display = "none";
       }
     })();
 
