@@ -137,7 +137,7 @@ html {background-color: #FFFFFF; margin: 0; padding: 0; height: 100%;}
   width: 100%;
   margin-inline: auto;
   grid-template-columns: 300px 300px 300px;
-  grid-template-rows: 300px 100px 300px;
+  grid-template-rows: 300px 150px 300px;
   column-gap: 2.9%;
   height: 50%;
   padding: 1%;
@@ -203,6 +203,19 @@ html {background-color: #FFFFFF; margin: 0; padding: 0; height: 100%;}
   align-content: center;
   text-align: center;
 }
+
+.playbutton {
+  height: 50px;
+  width: 50px;
+  background-color: #003366;
+  color: white;
+  padding: 12px 16px;
+  border:none;
+  margin: 2%;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
 </style>
 </head>
 <body>
@@ -225,12 +238,80 @@ html {background-color: #FFFFFF; margin: 0; padding: 0; height: 100%;}
     <div class="withbg"><img src="images/fau_engineering.png" width="250" alt="FAU Engineering"></div>
     <div class="withbg"><img src="images/fau_general_news.png" width="200" alt="Research"></div>
     <div class="withbg"><img src="images/local_news.png" width="220" alt="Student & Campus Life"></div> 
-    <div class="adjust lato-regular">FAU Engineering</div> 
-    <div class="adjust lato-regular">General FAU News & Events</div> 
-    <div class="adjust lato-regular">Local News</div> 
+    <div class="adjust lato-regular">FAU Engineering<br><button id="playbutton1" class="playbutton" style="font-size:90%;"></button></div> 
+    <div class="adjust lato-regular">General FAU News & Events<br><button id="playbutton2" class="playbutton" style="font-size:90%;"></button></div> 
+    <div class="adjust lato-regular">Local News<br><button id="playbutton3" class="playbutton" style="font-size:90%;"></button></div> 
   </div>
+
+  <!-- Audio -->
+  <audio id="firstAudio" src="audio/FAUEngineeringRadio.mp3" preload="auto"></audio>
+  <audio id="secondAudio" src="audio/GeneralFAUNewsRadio.mp3" preload="auto"></audio>
+  <audio id="thirdAudio" src="audio/LocalNewsRadio.mp3" preload="auto"></audio>
+
+  <!-- Play/pause button functionality -->
+  <script>
+  const firstAudio = document.getElementById('firstAudio');
+  const playButtonOne = document.getElementById('playbutton1');
+
+  let isPlayingOne = false;
+  playButtonOne.innerHTML = '▶';
+
+    playButtonOne.addEventListener('click', function() {
+        if (isPlayingOne) {
+            firstAudio.pause();
+            playButtonOne.innerHTML = '▶';
+            playButtonOne.classList.remove('paused');
+        } else {
+            firstAudio.play();
+            playButtonOne.innerHTML = '❚❚';
+            playButtonOne.classList.add('paused');
+        }
+        isPlayingOne = !isPlayingOne;
+    });
+    </script>
+
+<script>
+    const secondAudio = document.getElementById('secondAudio');
+    const playButtonTwo = document.getElementById('playbutton2');
+     
+    let isPlayingTwo = false;
+    playButtonTwo.innerHTML = '▶';
+
+    playButtonTwo.addEventListener('click', function() {
+        if (isPlayingTwo) {
+            secondAudio.pause();
+            playButtonTwo.innerHTML = "▶";
+            playButtonTwo.classList.remove('paused');
+        } else {
+            secondAudio.play();
+            playButtonTwo.innerHTML = "❚❚";
+            playButtonTwo.classList.add('paused');
+        }
+        isPlayingTwo = !isPlayingTwo;
+    });
+</script>
+<script>
+    const thirdAudio = document.getElementById('thirdAudio');
+    const playButtonThree = document.getElementById('playbutton3');
+  
+    let isPlayingThree = false;
+    playButtonThree.innerHTML = '▶';
+        
+        playButtonThree.addEventListener('click', function() {
+        if (isPlayingThree) {
+            thirdAudio.pause();
+            playButtonThree.innerHTML = "▶";
+            playButtonThree.classList.remove('paused');
+        } else {
+            thirdAudio.play();
+            playButtonThree.innerHTML = "❚❚";
+            playButtonThree.classList.add('paused');
+        }
+        isPlayingThree = !isPlayingThree;
+    });
+  </script>
  
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
   const SUPABASE_URL = "https://vefipiufdaxfllfwtavs.supabase.co";
   const SUPABASE_ANON = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZlZmlwaXVmZGF4ZmxsZnd0YXZzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTczMDAyNTQsImV4cCI6MjA3Mjg3NjI1NH0.evvilDK6acch5X3IKyWZUyiwSUtlWg1s97zOaFUKXCs";
