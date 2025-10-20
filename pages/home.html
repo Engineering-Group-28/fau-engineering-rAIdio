@@ -50,9 +50,38 @@ body {
   padding: 0; 
   height: 100%;
   background-color: #ffffff;
-  }
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
 
 html {background-color: #FFFFFF; margin: 0; padding: 0; height: 100%;}
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Lato', sans-serif;
+      background-color: #ffffff;
+      color: #292A2B;
+    }
+
+    h1, h2 {
+      text-align: center;
+      color: #003366;
+    }
+
+    p {
+      line-height: 1.6;
+      margin: 10px 0;
+    }
+
+    a {
+      text-decoration: none;
+      color: #003366;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
 
 .topnav {
   display: flex;
@@ -125,8 +154,8 @@ html {background-color: #FFFFFF; margin: 0; padding: 0; height: 100%;}
   display: flex;
   justify-items: center;
   align-items: center;
-  height: 70%;
-  margin: 0px;
+  flex: 1 0 auto;
+  margin: 0;
   background-color: #F5F7FA;
 }
 
@@ -213,6 +242,22 @@ html {background-color: #FFFFFF; margin: 0; padding: 0; height: 100%;}
   align-content: center;
   text-align: center;
 }
+/* Footer Section */
+    .footer {
+      text-align: center;
+      background: #003366;
+      color: white;
+      margin-top: 20px;
+    }
+
+    .footer a {
+      color: #85B9EB;
+    }
+
+    .footer a:hover {
+      color: #CC0000;
+    }
+
 /* podcasts end */
 </style>
 </head>
@@ -243,6 +288,15 @@ html {background-color: #FFFFFF; margin: 0; padding: 0; height: 100%;}
   </div>
   <div class="column">
     <img class="graphic" src="images/homepage_graphic.png" alt="Engineering rAIdio" style="margin-right:15%">
+  </div>
+</div>
+
+   <!-- Footer -->
+  <div class="footer">
+    <p class="lato-regular"><span style="color: #FFFFFF;">
+      &copy; 2025 FAU Engineering rAIdio Station. All rights reserved. |
+      </span>
+      <a href="privacy.html">Privacy Policy</a></p>
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>

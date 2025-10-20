@@ -1,80 +1,150 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
   <title>FAU Engineering rAIdio Station — Feedback</title>
   <style>
-    /* ====== Your existing site styles ====== */
-    h1 {
-      font-family: 'Lexend', sans-serif; 
-      color: #292A2B; 
-      margin-bottom: 10px; 
-      line-height: 1.5; 
-      font-size: 60px;
-      text-align: center;
-    }
+    /* General Styles */
+  .lato-regular {
+  font-family: "Lato", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 18px;
+}
 
+.lato-bold {
+  font-family: "Lato", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+}
+
+.graphic {
+  width: 85%;
+}
+
+.logo {
+  height: 60%;
+}
+
+h1 {
+  color: #292A2B; 
+  margin-bottom: 5px; 
+  line-height: 1.15; 
+  font-size: 60px;
+  text-align: left;
+}
+
+p  {
+  color: #292A2B; 
+  text-align: left;
+  margin: 6%;
+  margin-bottom: 0;
+  line-height: 1.5; 
+  padding: 20px 20px 20px 20px;
+  }
+
+body {
+  margin: 0; 
+  padding: 0; 
+  height: 100%;
+  background-color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+html {background-color: #FFFFFF; margin: 0; padding: 0; height: 100%;}
     body {
-      margin: 0; 
-      padding: 0; 
-      height: 100%;
-      background-image: url('images/background_idea.png');
-      background-color: #ffffff; /* Fallback color */
-      background-repeat: no-repeat; /* Prevents image from repeating */
-      background-size: cover; /* Scales image to cover the entire background */
-      background-attachment: fixed;
-    }
-
-    .topnav {
-      display: flex;
-      align-items: center;
-      height: 8%;
-      text-decoration: none;
-      font-family: 'Lexend', sans-serif;
-      font-weight: 400;
-      column-gap: 20px;
-      overflow: hidden;
       margin: 0;
-      padding: 0px 60px 0px 60px;
-      background-image: linear-gradient(to right, #003366, #45B0DE, #DE3347);
-    }
-    .topnav .logo {
-      height: 40px;
-      width: auto;
-    }
-
-    .topnav a {
-      display: block;
-      text-decoration: none;
-      color: #FFFFFF;
-      font-weight: bold;
-      padding: 14px 16px;
+      padding: 0;
       font-family: 'Lexend', sans-serif;
-      font-size: 17px;
-      font-weight: 400;
+      background-color: #ffffff;
+      color: #292A2B;
     }
 
-    .topnav a:hover {
+    h1, h2 {
+      text-align: center;
+      color: #003366;
+    }
+
+    p {
+      line-height: 1.6;
+      margin: 10px 0;
+    }
+
+    a {
+      text-decoration: none;
+      color: #003366;
+    }
+
+    a:hover {
       text-decoration: underline;
-      text-underline-offset: 10px;
-      color: white;
     }
 
-    .topnav a.active {
-      text-decoration: underline;
-      text-underline-offset: 10px;
-      color: #FFFFFF;
-    }
+     .topnav {
+  display: flex;
+  align-items: center;
+  height: 10%;
+  text-decoration: none;
+  column-gap: 20px;
+  overflow: hidden;
+  margin: 0;
+  padding: 0px 60px 0px 60px;
+  background-image: white;
+}
 
-    .topnav input[type=search] {
-      margin-left: auto;
-      padding: 6px;
-      border: none;
-      margin-top: 4px;
-      margin-right: 16px;
-      font-size: 14px;
-      border-radius: 2px;
-    }
+.topnav a {
+  display: inline-block;
+  text-decoration: none;
+  color: #292A2B;
+  padding: 14px 16px;
+  font-size: 15px;
+}
+
+.topnav a:hover {
+  color: #85B9EB;
+}
+
+.topnav a.active {
+  text-decoration: underline;
+  text-decoration-thickness: 3px;
+  text-underline-offset: 100%;
+  color: #85B9EB;
+}
+
+.topnav input[type=search] {
+  margin-left: auto;
+  padding: 6px;
+  border-style: solid;
+  border-width: 1px;
+  border-color: #ccc;
+  margin-top: 4px;
+  margin-right: 16px;
+  font-size: 14px;
+  border-radius: 23px;
+}
+
+.button {
+  background-color: #003366;
+  border: none;
+  color: white;
+  padding: 15px 25px 15px 25px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 20px 2px;
+  cursor: pointer;
+}
+.button1 {border-radius: 32px;}
+
+.button1:hover {
+  background-color: #85B9EB;
+  color: white;
+}
 
     /* ====== Feedback form styles (merged) ====== */
 main { padding: 24px; }
@@ -152,27 +222,46 @@ button[type="submit"]:hover { filter: brightness(1.05); }
       color: #b00020;
       margin-top: 10px;
     }
+
+    /* Footer Section */
+    .footer {
+      text-align: center;
+      background: #003366;
+      color: white;
+      margin-top: auto;
+      padding: 10px;
+    }
+
+    .footer a {
+      color: #85B9EB;
+    }
+
+    .footer a:hover {
+      color: #CC0000;
+    }
   </style>
 </head>
 <body>
-  <div class="topnav">
+  <div class="topnav lato-bold">
     <img class="logo" src="images/fau_engineering.png" alt="Engineering rAIdio">
-    <a href="home.html">Home</a>
+    <a href="home.html">HOME</a>
     <a href="rAIdio.html">rAIdio</a>
-    <a href="podcasts.html">Podcasts</a>
-    <a href="feedback.html" class="active">Feedback</a>
-    <a href="about.html">About</a>
-    <a id="loginLink" href="login.html">Login</a>
-    <a id="profileLink" href="profile.html" style="display:none;">Profile</a>
-    <button id="logoutBtn" style="display:none;">Logout</button>
+    <a href="podcasts.html">PODCASTS</a>
+    <a href="feedback.html" class="active">FEEDBACK</a>
+    <a href="about.html">ABOUT</a>
+    <a id="loginLink" href="login.html">LOGIN</a>
+    <a id="profileLink" href="profile.html" style="display:none;">PROFILE</a>
+    <button id="logoutBtn" style="display:none;">LOGOUT</button>
     <input type="search" placeholder="Search">
   </div>
 
   <main>
-    <h1>Feedback</h1>
-
+    <p style="margin:0; background-color: #F5F7FA; text-align: center;"><span= class="lato-bold" style="font-size: 150%;">Feedback</span><br>
+      
     <!-- Feedback Form -->
+     
     <form id="feedbackForm" novalidate>
+      
       <fieldset class="form-row">
         <legend>What did you listen to?</legend>
         <div class="checkbox-group" role="group" aria-label="Content listened to">
@@ -212,7 +301,7 @@ button[type="submit"]:hover { filter: brightness(1.05); }
 
     <!-- Feedback Table for Admins -->
     <div id="feedbackTable" style="display: none;">
-      <h2>All Feedback Submissions</h2>
+      <h2>Submitted Feedback</h2>
       <table>
         <thead>
           <tr>
@@ -227,7 +316,17 @@ button[type="submit"]:hover { filter: brightness(1.05); }
         <tbody></tbody>
       </table>
     </div>
+
+     <!-- Footer -->
+  
+
   </main>
+<div class="footer">
+    <p class="lato-regular"><span style="color: #FFFFFF;">
+      &copy; 2025 FAU Engineering rAIdio Station. All rights reserved. |
+      </span>
+      <a href="privacy.html">Privacy Policy</a></p>
+  </div>
 <script>
     // Minimal client-side handling: collect values and show a confirmation.
     const form = document.getElementById('feedbackForm');
@@ -283,22 +382,29 @@ button[type="submit"]:hover { filter: brightness(1.05); }
 
 
     });
+   
   </script>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script>
     const SUPABASE_URL = "https://vefipiufdaxfllfwtavs.supabase.co";
     const SUPABASE_ANON = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZlZmlwaXVmZGF4ZmxsZnd0YXZzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTczMDAyNTQsImV4cCI6MjA3Mjg3NjI1NH0.evvilDK6acch5X3IKyWZUyiwSUtlWg1s97zOaFUKXCs";
-    const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON);
-
+    const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON, {
+  auth: {
+    persistSession: true,  // ✅ keeps you logged in between pages
+    autoRefreshToken: true
+  }
+});
     const feedbackForm = document.getElementById("feedbackForm");
     const feedbackTable = document.getElementById("feedbackTable");
     const feedbackTableBody = feedbackTable.querySelector("tbody");
+    
 
     (async () => {
       // Allow anonymous users to access the feedback form.
       // If there is a logged-in session, check role and show admin table for admins.
       const { data: { session } } = await supabase.auth.getSession();
-
+      console.log("session:", session);
+console.log("auth.uid equivalent:", session?.user?.id);
       if (!session) {
         // No session: show the feedback form to anonymous users (no redirect)
         console.log("No session — showing feedback form for anonymous user.");
@@ -336,8 +442,9 @@ button[type="submit"]:hover { filter: brightness(1.05); }
       if (profile.role.trim().toLowerCase() === "admin") {
         console.log("Admin detected. Showing feedback table.");
         feedbackTable.style.display = "block";
-        feedbackForm.style.display = "none"; // Hide the feedback form for admins
-        loadFeedbackTable();
+        feedbackForm.style.display = "none";
+        
+        await loadFeedbackTable();
       } else {
         console.log("User detected. Showing feedback form.");
         feedbackForm.style.display = "block";
@@ -357,6 +464,8 @@ button[type="submit"]:hover { filter: brightness(1.05); }
   }
 
   console.log("Fetched feedback data:", data); // Debugging: Log the fetched data
+
+  const feedbackTableBody = document.querySelector("#feedbackTable tbody");
 
   if (!data || data.length === 0) {
     feedbackTableBody.innerHTML = `
