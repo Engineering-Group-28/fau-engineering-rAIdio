@@ -9,7 +9,6 @@
 <style>
 
 /* General classes */
-html, body {background-color: white; margin: 0; padding: 0; height: 100vh; width: 100vw;}
 
 .lato-regular {
   font-family: "Lato", sans-serif;
@@ -48,6 +47,43 @@ p  {
   line-height: 1.5; 
   padding: 20px 20px 20px 20px;
   }
+
+body {
+  margin: 0; 
+  padding: 0; 
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  }
+
+html {background-color: #FFFFFF; margin: 0; padding: 0; height: 100%;}
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Lexend', sans-serif;
+      background-color: #ffffff;
+      color: #292A2B;
+    }
+
+    h1, h2 {
+      text-align: center;
+      color: #003366;
+    }
+
+    p {
+      line-height: 1.6;
+      margin: 10px 0;
+    }
+
+    a {
+      text-decoration: none;
+      color: #003366;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
 
 .topnav {
   display: flex;
@@ -251,13 +287,36 @@ p  {
   border-radius: 3px;
   cursor: pointer;
 }
+
+/* Social Share Styles */
+.social-share {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  margin-top: 8px;
+}
+.social-share a {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 10px;
+  border-radius: 8px;
+  text-decoration: none;
+  color: #fff;
+  font-weight: 600;
+  font-size: 14px;
+}
+.social-share a.twitter { background: #1DA1F2; }
+.social-share a.facebook { background: #1877F2; }
+.social-share a.linkedin { background: #0A66C2; }
+.social-share a.whatsapp { background: #25D366; color: #042101; }
+
 /* Footer Section */
     .footer {
       text-align: center;
-      padding: 10px;
       background: #003366;
       color: white;
-      margin-top: 20px;
+      margin-top: auto;
     }
 
     .footer a {
@@ -295,21 +354,56 @@ p  {
       <p style="margin:0; padding: 0;">
       <span class="lato-bold"> Agriculture, Big Data, and SMART Scholarship Award</span><br>
       October 11th, 2025</p>
+
+      <!-- social share block (data-title and data-audio used by JS) -->
+      <div class="social-share" data-title="Agriculture, Big Data, and SMART Scholarship Award" data-audio="#firstAudio">
+        <a class="twitter" href="#" target="_blank" rel="noopener">🐦 Twitter</a>
+        <a class="facebook" href="#" target="_blank" rel="noopener">📘 Facebook</a>
+        <a class="linkedin" href="#" target="_blank" rel="noopener">💼 LinkedIn</a>
+      </div>
     </div>
     <div class="withbg" style="padding: 3%;"><button id="playPauseButtonTwo" class="playbutton">Play</button>
     <p style="margin:0; padding: 0;">
       <span class="lato-bold">Artificial Intelligence, Grouper Reproductive Behavior, and Back Pain Treatment</span><br>October 10th, 2025
     </p>
+
+    <!-- social share block (data-title and data-audio used by JS) -->
+    <div class="social-share" data-title="Artificial Intelligence, Grouper Reproductive Behavior, and Back Pain Treatment" data-audio="#secondAudio">
+      <a class="twitter" href="#" target="_blank" rel="noopener">🐦 Twitter</a>
+      <a class="facebook" href="#" target="_blank" rel="noopener">📘 Facebook</a>
+      <a class="linkedin" href="#" target="_blank" rel="noopener">💼 LinkedIn</a>
+    </div>
   </div>
     <div class="withbg" style="padding: 3%;"><button id="playPauseButtonThree" class="playbutton">Play</button> 
       <p style="margin:0; padding: 0;">
       <span class="lato-bold">Scholarships, Awards, and Brain Blood Vessel Modeling</span><br>October 9th, 2025</p>
+
+      <!-- social share block (data-title and data-audio used by JS) -->
+      <div class="social-share" data-title="Scholarships, Awards, and Brain Blood Vessel Modeling" data-audio="#thirdAudio">
+        <a class="twitter" href="#" target="_blank" rel="noopener">🐦 Twitter</a>
+        <a class="facebook" href="#" target="_blank" rel="noopener">📘 Facebook</a>
+        <a class="linkedin" href="#" target="_blank" rel="noopener">💼 LinkedIn</a>
+      </div>
     </div> 
     <div class="withbg" style="padding: 3%;"><button id="playPauseButtonFour" class="playbutton">Play</button> 
       <p style="margin:0; padding: 0;">
-      <span class="lato-bold">Healthcare, Agriculture, and Data Science</span><br>October 8th, 2025</p></div>
-  </div>
+      <span class="lato-bold">Healthcare, Agriculture, and Data Science</span><br>October 8th, 2025</p>
 
+      <!-- social share block (data-title and data-audio used by JS) -->
+      <div class="social-share" data-title="Healthcare, Agriculture, and Data Science" data-audio="#fourthAudio">
+        <a class="twitter" href="#" target="_blank" rel="noopener">🐦 Twitter</a>
+        <a class="facebook" href="#" target="_blank" rel="noopener">📘 Facebook</a>
+        <a class="linkedin" href="#" target="_blank" rel="noopener">💼 LinkedIn</a>
+      </div>
+    </div>
+  </div>
+<!-- Footer -->
+  <div class="footer">
+    <p class="lato-regular"><span style="color: #FFFFFF;">
+      &copy; 2025 FAU Engineering rAIdio Station. All rights reserved. |
+      </span>
+      <a href="privacy.html">Privacy Policy</a></p>
+  </div>
   <!-- Audio -->
   <audio id="firstAudio" src="audio/FAUEngineeringScript4.mp3" preload="auto"></audio>
   <audio id="secondAudio" src="audio/FAUEngineeringScript3.mp3" preload="auto"></audio>
@@ -372,12 +466,44 @@ p  {
             playPauseButtonFour.textContent = 'Play';
         }
     });
-    <!-- Footer -->
-  <div class="footer">
-    <p class="lato-regular"><span style="color: #FFFFFF;">
-      &copy; 2025 FAU Engineering rAIdio Station. All rights reserved. |
-      </span>
-      <a href="privacy.html">Privacy Policy</a></p>
-  </div>
+    
   </script>
+  <script>
+(function populateShareLinks(){
+  const shares = document.querySelectorAll('.social-share');
+  shares.forEach(div => {
+    const title = div.dataset.title || document.title;
+    const audioFragment = div.dataset.audio || '';
+    // use page URL + fragment so shared link jumps to the audio element
+    const pageUrl = window.location.origin + window.location.pathname + audioFragment;
+    const text = `${title} — FAU Engineering rAIdio`;
+
+    const urls = {
+      twitter: `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(pageUrl)}`,
+      facebook: `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(pageUrl)}`,
+      linkedin: `https://www.linkedin.com/shareArticle?mini=true&url=${encodeURIComponent(pageUrl)}&title=${encodeURIComponent(text)}`,
+    };
+
+    const anchors = div.querySelectorAll('a');
+    anchors.forEach(a => {
+      if (a.classList.contains('twitter')) a.href = urls.twitter;
+      if (a.classList.contains('facebook')) a.href = urls.facebook;
+      if (a.classList.contains('linkedin')) a.href = urls.linkedin;
+    });
+
+    // optional: open share in a centered popup for desktop for nicer UX
+    div.addEventListener('click', (e) => {
+      const a = e.target.closest('a');
+      if (!a) return;
+      // whatsapp and some mobile links should open normally
+      if (a.classList.contains('whatsapp')) return;
+      e.preventDefault();
+      const w = 600, h = 480;
+      const left = (screen.width / 2) - (w / 2);
+      const top = (screen.height / 2) - (h / 2);
+      window.open(a.href, 'share', `width=${w},height=${h},top=${top},left=${left},noopener`);
+    });
+  });
+})();
+</script>
 </body>
